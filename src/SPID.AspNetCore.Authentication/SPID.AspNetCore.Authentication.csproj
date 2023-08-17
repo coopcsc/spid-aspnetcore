@@ -12,11 +12,11 @@
     <PackageProjectUrl>https://github.com/italia/spid-aspnetcore</PackageProjectUrl>
     <PackageIcon>spid-nuget.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageVersion>2.0.2</PackageVersion>
-    <Version>2.0.2</Version>
-    <AssemblyVersion>2.0.2</AssemblyVersion>
-    <FileVersion>2.0.2</FileVersion>
-    <InformationalVersion>2.0.2</InformationalVersion>
+    <PackageVersion>2.0.3-ocpa</PackageVersion>
+    <Version>2.0.3-ocpa</Version>
+    <AssemblyVersion>2.0.3-ocpa</AssemblyVersion>
+    <FileVersion>2.0.3-ocpa</FileVersion>
+    <InformationalVersion>2.0.3-ocpa</InformationalVersion>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/italia/spid-aspnetcore</RepositoryUrl>

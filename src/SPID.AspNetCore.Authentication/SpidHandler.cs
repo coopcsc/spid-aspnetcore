@@ -9,6 +9,7 @@ using SPID.AspNetCore.Authentication.Helpers;
 using SPID.AspNetCore.Authentication.Models;
 using SPID.AspNetCore.Authentication.Resources;
 using SPID.AspNetCore.Authentication.Saml;
+using SPID.AspNetCore.Authentication.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,23 +25,29 @@ using System.Web;
 
 namespace SPID.AspNetCore.Authentication
 {
-    internal class SpidHandler : RemoteAuthenticationHandler<SpidOptions>, IAuthenticationSignOutHandler
+    public class SpidHandler : RemoteAuthenticationHandler<SpidOptions>, IAuthenticationSignOutHandler
     {
         EventsHandler _eventsHandler;
         RequestHandler _requestGenerator;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogHandler _logHandler;
+        private readonly IIdpNameRetriever _nameRetriever;
+        private readonly ICheckCanAuthenticationHandled _shouldHandleThis;
 
         public SpidHandler(IOptionsMonitor<SpidOptions> options,
-            ILoggerFactory logger,
-            UrlEncoder encoder,
-            ISystemClock clock,
-            IHttpClientFactory httpClientFactory,
-            ILogHandler logHandler)
-            : base(options, logger, encoder, clock)
+                ILoggerFactory logger,
+                UrlEncoder encoder,
+                ISystemClock clock,
+                IHttpClientFactory httpClientFactory,
+                ILogHandler logHandler,
+                IIdpNameRetriever nameRetriever,
+                ICheckCanAuthenticationHandled shouldHandleThis)
+                : base(options, logger, encoder, clock)
         {
             _httpClientFactory = httpClientFactory;
             _logHandler = logHandler;
+            _nameRetriever = nameRetriever;
+            _shouldHandleThis = shouldHandleThis;
         }
 
         protected new SpidEvents Events
@@ -57,11 +64,14 @@ namespace SPID.AspNetCore.Authentication
         /// <returns>value indicating whether the request should be handled or not</returns>
         public override async Task<bool> ShouldHandleRequestAsync()
         {
-            var result = await base.ShouldHandleRequestAsync();
+            this.Logger.LogInformation("START ShouldHandleRequestAsync");
+            var result = (await base.ShouldHandleRequestAsync()) && (await _shouldHandleThis.CanIHandle());
             if (!result)
             {
                 result = Options.RemoteSignOutPath == Request.Path;
             }
+
+            this.Logger.LogInformation($"END ShouldHandleRequestAsync {result}");
             return result;
         }
 
@@ -71,6 +81,7 @@ namespace SPID.AspNetCore.Authentication
         /// <returns></returns>
         public override Task<bool> HandleRequestAsync()
         {
+            this.Logger.LogInformation("START HandleRequestAsync");
             _eventsHandler = new EventsHandler(Events);
             _requestGenerator = new RequestHandler(Response, Logger, _logHandler);
 
@@ -80,12 +91,15 @@ namespace SPID.AspNetCore.Authentication
                 // We've received a remote sign-out request
                 return HandleRemoteSignOutAsync();
             }
-
+            
+            this.Logger.LogInformation("END HandleRequestAsync");
             return base.HandleRequestAsync();
         }
 
         protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
         {
+            this.Logger.LogInformation("START HandleChallengeAsync");
+
             // Save the original challenge URI so we can redirect back to it when we're done.
             if (string.IsNullOrEmpty(properties.RedirectUri))
             {
@@ -96,9 +110,9 @@ namespace SPID.AspNetCore.Authentication
             string authenticationRequestId = Guid.NewGuid().ToString();
 
             // Select the Identity Provider
-            var idpName = Request.Query["idpName"];
+            var idpName = await _nameRetriever.GetIdpName();
+            this.Logger.LogInformation($"ipdName : {idpName}");
             var idp = (await Options.GetIdentityProviders(_httpClientFactory)).FirstOrDefault(x => x.Name == idpName);
-
 
             var securityTokenCreatingContext = await _eventsHandler.HandleSecurityTokenCreatingContext(Context,
                 Scheme,
@@ -131,6 +145,8 @@ namespace SPID.AspNetCore.Authentication
             properties.SetIdentityProviderName(idpName);
             properties.SetAuthenticationRequest(message);
             properties.Save(Response, Options.StateDataFormat);
+
+            this.Logger.LogInformation("END HandleChallengeAsync");
 
             await _requestGenerator.HandleRequest(message,
                 message.ID,

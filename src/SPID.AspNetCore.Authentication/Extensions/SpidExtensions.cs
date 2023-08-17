@@ -10,6 +10,7 @@ using SPID.AspNetCore.Authentication.Events;
 using SPID.AspNetCore.Authentication.Extensions;
 using SPID.AspNetCore.Authentication.Models;
 using SPID.AspNetCore.Authentication.Models.ServiceProviders;
+using SPID.AspNetCore.Authentication.Services;
 using System;
 using System.Security.Claims;
 
@@ -66,6 +67,8 @@ namespace SPID.AspNetCore.Authentication
             builder.Services.AddOptions<SpidOptions>().Configure(configureOptions);
             builder.Services.TryAddScoped<IServiceProvidersFactory, DefaultServiceProvidersFactory>();
             builder.Services.TryAddScoped<ILogHandler, DefaultLogHandler>();
+            builder.Services.TryAddScoped<IIdpNameRetriever, DefaultIdpNameRetriever>();
+            builder.Services.TryAddScoped<ICheckCanAuthenticationHandled, DefaultCheckCanAuthenticationHandled>();
             return builder.AddRemoteScheme<SpidOptions, SpidHandler>(authenticationScheme, displayName, configureOptions);
         }
 
@@ -73,6 +76,20 @@ namespace SPID.AspNetCore.Authentication
             where T : class, IServiceProvidersFactory
         {
             builder.Services.AddScoped<IServiceProvidersFactory, T>();
+            return builder;
+        }
+
+        public static AuthenticationBuilder AddIdpNameRetriever<T>(this AuthenticationBuilder builder)
+            where T : class, IIdpNameRetriever
+        {
+            builder.Services.AddScoped<IIdpNameRetriever, T>();
+            return builder;
+        }
+
+        public static AuthenticationBuilder AddCheckCanAuthenticationHandled<T>(this AuthenticationBuilder builder)
+            where T : class, ICheckCanAuthenticationHandled
+        {
+            builder.Services.AddScoped<ICheckCanAuthenticationHandled, T>();
             return builder;
         }
 

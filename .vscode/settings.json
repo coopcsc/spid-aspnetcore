@@ -1,0 +1,11 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "omnisharp.projectLoadTimeout": 1000,
+    "[liquid]": {
+        "editor.formatOnSave": false,
+        "editor.formatOnType": false,
+        "editor.defaultFormatter": "sissel.shopify-liquid"
+    },
+    "liquid.format.enable": true,
+    "html.format.unformatted": ""
+}

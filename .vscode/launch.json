@@ -1,0 +1,89 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Launch (console debug) - net7.0",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "dotnet build (debug) - net7.0",
+      "program": "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp/bin/Debug/net7.0/SPID.AspNetCore.WebApp.dll",
+      "args": [],
+      "cwd": "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "stopAtEntry": false
+    },
+    {
+      "name": ".NET Core Launch (web debug) - net7.0",
+      "type": "coreclr",
+      "request": "launch",
+      "internalConsoleOptions": "openOnSessionStart",
+      "preLaunchTask": "dotnet build (debug) - net7.0",
+      "program": "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp/bin/Debug/net7.0/SPID.AspNetCore.WebApp.dll",
+      "args": [],
+      "cwd": "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      }
+    },
+    {
+      "name": ".NET Core Launch, no build (web debug) - net7.0",
+      "type": "coreclr",
+      "request": "launch",
+      "internalConsoleOptions": "openOnSessionStart",
+      "preLaunchTask": "",
+      "program": "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp/bin/Debug/net7.0/SPID.AspNetCore.WebApp.dll",
+      "args": [],
+      "cwd": "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      }
+    },
+    {
+      "name": ".NET Core Launch (web debug) - dotnet watch - net7.0",
+      "type": "dotnetwatchattach",
+      "request": "launch",
+      "task": "dotnet watch - net7.0",
+      "program": "SPID.AspNetCore.WebApp.exe",
+      "args": {
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      }
+    },
+    {
+        "name": ".NET Core Attach",
+        "type": "coreclr",
+        "request": "attach",
+        "processId": "${command:pickProcess}"
+    },
+    {
+      "name": "Gulp Debug",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+      "stopOnEntry": false,
+      "args": [],
+      "cwd": "${workspaceRoot}",
+      "runtimeArgs": [
+        "--nolazy"
+      ],
+      "console": "internalConsole"
+    }
+  ]
+}

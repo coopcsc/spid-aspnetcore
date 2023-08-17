@@ -6,12 +6,16 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace SPID.AspNetCore.Authentication.Helpers
 {
-    internal static class OptionsHelper
+    public static class OptionsHelper
     {
-        internal static SpidConfiguration CreateFromConfiguration(IConfiguration configuration)
+        public static SpidConfiguration CreateFromConfiguration(IConfiguration configuration)
+        {
+            return CreateFromConfiguration(configuration, new SpidConfiguration());
+        }
+
+        public static SpidConfiguration CreateFromConfiguration(IConfiguration configuration, SpidConfiguration options)
         {
             var section = configuration.GetSection("Spid");
-            var options = new SpidConfiguration();
 
             options.IsStagingValidatorEnabled = section.GetValue<bool?>("IsStagingValidatorEnabled") ?? false;
             options.IsLocalValidatorEnabled = section.GetValue<bool?>("IsLocalValidatorEnabled") ?? false;

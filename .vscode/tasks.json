@@ -1,0 +1,267 @@
+{
+  "version": "2.0.0",
+  "linux": {
+    "command": "sh",
+    "args": [
+      "-c"
+    ]
+  },
+  "osx": {
+    "command": "sh",
+    "args": [
+      "-c"
+    ]
+  },
+  "windows": {
+    "options": {
+      "shell": {
+        "executable": "powershell.exe",
+        "args": [
+          "-Command"
+        ]
+      }
+    }
+  },
+  "tasks": [
+    {
+      "label": "dotnet watch - net7.0",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "watch",
+        "run",
+        "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+        "-f",
+        "net7.0"
+      ],
+      "options": {
+        "cwd": "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "dotnet run",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "${workspaceRoot}\\samples\\1_SimpleSPWebApp/\\PID.AspNetCore.WebApp\\SPID.AspNetCore.WebApp.csproj",
+        "-f",
+        "net7.0"
+      ]
+    },
+    {
+      "label": "dotnet restore",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "restore"
+      ]
+    },
+    {
+      "label": "dotnet restore force",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "restore",
+        "--no-cache"
+      ]
+    },
+    {
+      "label": "dotnet clean (debug)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "clean",
+        "--configuration",
+        "Debug"
+      ]
+    },
+    {
+      "label": "dotnet clean (release)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "clean",
+        "--configuration",
+        "Release"
+      ]
+    },
+    {
+      "label": "dotnet build (debug) - net7.0",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+        "-c",
+        "Debug",
+        "-f",
+        "net7.0"
+      ],
+      "problemMatcher": "$msCompile",
+      "dependsOn": [
+        //"move It.Csc.Ckube.CarrierGem.OrchardCore.Integration files to CMS folder"
+      ]
+    },
+    {
+      "label": "dotnet build (release) - net7.0",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+        "-c",
+        "Release",
+        "-f",
+        "net7.0"
+      ],
+      "problemMatcher": "$msCompile",
+      "dependsOn": [
+        //"move It.Csc.Ckube.CarrierGem.OrchardCore.Integration files to CMS folder"
+      ]
+    },
+    {
+      "label": "dotnet rebuild (debug) - net7.0",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+        "--no-incremental",
+        "-c",
+        "Debug",
+        "-f",
+        "net7.0"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "dotnet rebuild (release) - net7.0",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+        "--no-incremental",
+        "-c",
+        "Release",
+        "-f",
+        "net7.0"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "cleanup publish folder",
+      "type": "shell",
+      "command": "rm",
+      "windows": {
+        "command": "Remove-Item",
+        "args": [
+          "${workspaceRoot}\\.build\\release\\*",
+          "-recurse"
+        ]
+      },
+      "args": [
+        "-rfv",
+        "${workspaceRoot}/.build/release/*"
+      ]
+    },
+    {
+      "label": "dotnet publish (self-contained) - release - net7.0",
+      "type": "shell",
+      "command": "dotnet",
+      "windows": {
+        "command": "dotnet",
+        "args": [
+          "publish",
+          "${workspaceRoot}\\samples\\1_SimpleSPWebApp/\\PID.AspNetCore.WebApp\\SPID.AspNetCore.WebApp.csproj",
+          "--configuration",
+          "release",
+          "--runtime",
+          "win-x64",
+          "--self-contained",
+          "--framework",
+          "net7.0",
+          "--output",
+          ".\\.build\\release"
+        ]
+      },
+      "args": [
+        "publish",
+        "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+        "--configuration",
+        "release",
+        "--runtime",
+        "linux-x64",
+        "--self-contained",
+        "--framework",
+        "net7.0",
+        "--output",
+        "./.build/release"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "dotnet publish (framework dependent) - release - net7.0",
+      "type": "shell",
+      "command": "dotnet",
+      "windows": {
+        "command": "dotnet",
+        "args": [
+          "publish",
+          "${workspaceRoot}\\samples\\1_SimpleSPWebApp/\\PID.AspNetCore.WebApp\\SPID.AspNetCore.WebApp.csproj",
+          "--configuration",
+          "release",
+          "--runtime",
+          "win-x64",
+          "--self-contained",
+          "false",
+          "--framework",
+          "net7.0",
+          "--output",
+          ".\\.build\\release"
+        ]
+      },
+      "args": [
+        "publish",
+        "${workspaceRoot}/samples/1_SimpleSPWebApp/SPID.AspNetCore.WebApp",
+        "--configuration",
+        "release",
+        "--runtime",
+        "linux-x64",
+        "--self-contained",
+        "false",
+        "--framework",
+        "net7.0",
+        "--output",
+        "./.build/release"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "tasks: dotnet publish release (self-contained) - net7.0",
+      "dependsOn": [
+        "cleanup publish folder",
+        "dotnet publish (self-contained) - net7.0"
+      ]
+    },
+    {
+      "label": "tasks: dotnet publish release (framework dependent) - net7.0",
+      "dependsOn": [
+        "cleanup publish folder",
+        "dotnet publish (framework dependent) - net7.0"
+      ]
+    },
+    {
+      "label": "gulp build",
+      "type": "shell",
+      "command": "gulp",
+      "args": [
+        "build"
+      ],
+      "problemMatcher": "$gulp-tsc"
+    }
+  ]
+}

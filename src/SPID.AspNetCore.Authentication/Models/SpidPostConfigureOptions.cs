@@ -5,7 +5,7 @@ using System.Net.Http;
 
 namespace SPID.AspNetCore.Authentication.Models
 {
-    internal sealed class SpidPostConfigureOptions : IPostConfigureOptions<SpidOptions>
+    public sealed class SpidPostConfigureOptions : IPostConfigureOptions<SpidOptions>
     {
         private readonly IDataProtectionProvider _dp;
 

@@ -291,6 +291,11 @@ namespace SPID.AspNetCore.Authentication.Models
         public void LoadFromConfiguration(IConfiguration configuration)
         {
             var conf = OptionsHelper.CreateFromConfiguration(configuration);
+            LoadFromConfiguration(conf);
+        }
+
+        public void LoadFromConfiguration(SpidConfiguration conf)
+        {
             _identityProviders.AddRange(conf.IdentityProviders);
             IsStagingValidatorEnabled = conf.IsStagingValidatorEnabled;
             IsLocalValidatorEnabled = conf.IsLocalValidatorEnabled;
