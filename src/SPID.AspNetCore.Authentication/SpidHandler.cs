@@ -32,7 +32,6 @@ namespace SPID.AspNetCore.Authentication
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogHandler _logHandler;
         private readonly IIdpNameRetriever _nameRetriever;
-        private readonly ICheckCanAuthenticationHandled _shouldHandleThis;
 
         public SpidHandler(IOptionsMonitor<SpidOptions> options,
                 ILoggerFactory logger,
@@ -40,14 +39,12 @@ namespace SPID.AspNetCore.Authentication
                 ISystemClock clock,
                 IHttpClientFactory httpClientFactory,
                 ILogHandler logHandler,
-                IIdpNameRetriever nameRetriever,
-                ICheckCanAuthenticationHandled shouldHandleThis)
+                IIdpNameRetriever nameRetriever)
                 : base(options, logger, encoder, clock)
         {
             _httpClientFactory = httpClientFactory;
             _logHandler = logHandler;
             _nameRetriever = nameRetriever;
-            _shouldHandleThis = shouldHandleThis;
         }
 
         protected new SpidEvents Events
@@ -65,7 +62,7 @@ namespace SPID.AspNetCore.Authentication
         public override async Task<bool> ShouldHandleRequestAsync()
         {
             this.Logger.LogInformation("START ShouldHandleRequestAsync");
-            var result = (await base.ShouldHandleRequestAsync()) && (await _shouldHandleThis.CanIHandle());
+            var result = await base.ShouldHandleRequestAsync();
             if (!result)
             {
                 result = Options.RemoteSignOutPath == Request.Path;
