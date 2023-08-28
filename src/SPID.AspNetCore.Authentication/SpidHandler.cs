@@ -99,6 +99,7 @@ namespace SPID.AspNetCore.Authentication
         protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
         {
             this.Logger.LogInformation("START HandleChallengeAsync");
+            properties ??= new();
 
             // Save the original challenge URI so we can redirect back to it when we're done.
             if (string.IsNullOrEmpty(properties.RedirectUri))
@@ -218,13 +219,13 @@ namespace SPID.AspNetCore.Authentication
 
             string authenticationRequestId = Guid.NewGuid().ToString();
 
-            var requestProperties = new AuthenticationProperties();
-            requestProperties.Load(Request, Options.StateDataFormat);
+            properties ??= new();
+            properties.Load(Request, Options.StateDataFormat);
 
             // Extract the user state from properties and reset.
-            var idpName = requestProperties.GetIdentityProviderName();
-            var subjectNameId = requestProperties.GetSubjectNameId();
-            var sessionIndex = requestProperties.GetSessionIndex();
+            var idpName = properties.GetIdentityProviderName();
+            var subjectNameId = properties.GetSubjectNameId();
+            var sessionIndex = properties.GetSessionIndex();
 
             var idp = (await Options.GetIdentityProviders(_httpClientFactory)).FirstOrDefault(i => i.Name == idpName);
 
@@ -263,7 +264,7 @@ namespace SPID.AspNetCore.Authentication
 
         protected virtual async Task<bool> HandleRemoteSignOutAsync()
         {
-            var (id, message, serializedResponse) = await ExtractInfoFromSignOutResponse();
+            var (message, serializedResponse) = await ExtractInfoFromSignOutResponse();
 
             AuthenticationProperties requestProperties = new AuthenticationProperties();
             requestProperties.Load(Request, Options.StateDataFormat);
@@ -454,7 +455,7 @@ namespace SPID.AspNetCore.Authentication
             return (null, null, null);
         }
 
-        private async Task<(string Id, LogoutResponseType Message, string serializedResponse)> ExtractInfoFromSignOutResponse()
+        private async Task<(LogoutResponseType Message, string serializedResponse)> ExtractInfoFromSignOutResponse()
         {
             if (HttpMethods.IsPost(Request.Method)
               && !string.IsNullOrEmpty(Request.ContentType)
@@ -476,9 +477,7 @@ namespace SPID.AspNetCore.Authentication
                     Cookies = Request.Cookies.ToDictionary(t => t.Key, t => t.Value)
                 });
 
-                return (
-                    form["RelayState"].ToString(),
-                    SamlHandler.GetLogoutResponse(serializedResponse),
+                return (SamlHandler.GetLogoutResponse(serializedResponse),
                     serializedResponse
                 );
             }
@@ -498,13 +497,11 @@ namespace SPID.AspNetCore.Authentication
                     Cookies = Request.Cookies.ToDictionary(t => t.Key, t => t.Value)
                 });
 
-                return (
-                    Request.Query["RelayState"].FirstOrDefault(),
-                    SamlHandler.GetLogoutResponse(serializedResponse),
+                return (SamlHandler.GetLogoutResponse(serializedResponse),
                     serializedResponse
                 );
             }
-            return (null, null, null);
+            return (null, null);
         }
 
         private static string DecompressString(string value)
@@ -766,6 +763,7 @@ namespace SPID.AspNetCore.Authentication
 
         public static void Load(this AuthenticationProperties properties, HttpRequest request, ISecureDataFormat<AuthenticationProperties> encryptor)
         {
+            BusinessValidation.ValidationCondition(() => !request.Cookies.ContainsKey(SpidDefaults.CookieName), ErrorLocalization.SpidPropertiesNotFound);
             var cookie = request.Cookies[SpidDefaults.CookieName];
             BusinessValidation.ValidationNotNull(cookie, ErrorLocalization.SpidPropertiesNotFound);
             AuthenticationProperties cookieProperties = encryptor.Unprotect(cookie);
@@ -774,15 +772,16 @@ namespace SPID.AspNetCore.Authentication
             properties.ExpiresUtc = cookieProperties.ExpiresUtc;
             properties.IsPersistent = cookieProperties.IsPersistent;
             properties.IssuedUtc = cookieProperties.IssuedUtc;
-            foreach (var item in cookieProperties.Items)
+            foreach (var item in cookieProperties.Items.Where(i => !properties.Items.ContainsKey(i.Key)))
             {
                 properties.Items.Add(item);
             }
-            foreach (var item in cookieProperties.Parameters)
+            foreach (var item in cookieProperties.Parameters.Where(i => !properties.Parameters.ContainsKey(i.Key)))
             {
                 properties.Parameters.Add(item);
             }
-            properties.RedirectUri = cookieProperties.RedirectUri;
+            if (string.IsNullOrWhiteSpace(properties.RedirectUri))
+                properties.RedirectUri = cookieProperties.RedirectUri;
         }
     }
 }
