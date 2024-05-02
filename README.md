@@ -76,7 +76,7 @@ In particolare è possibile aggiungere alla configurazione una sezione 'Spid' ch
         "Name": "Validator",
         "OrganizationName": "Validator SPID",
         "OrganizationDisplayName": "Validator SPID",
-        "X509SigningCertificate": "MIIEfzCCA2egAwIBAgIUVSeD58C3IyG/SwADsok3KChutAAwDQYJKoZIhvcNAQELBQAwgc4xCzAJBgNVBAYTAklUMQ0wCwYDVQQIDARSb21lMQ0wCwYDVQQHDARSb21lMS0wKwYDVQQKDCRBZ0lEIC0gQWdlbnppYSBwZXIgbCdJdGFsaWEgRGlnaXRhbGUxLDAqBgNVBAsMI0FnSUQgLSBTZXJ2aXppbyBhY2NyZWRpdGFtZW50byBTUElEMR4wHAYDVQQDDBV2YWxpZGF0b3Iuc3BpZC5nb3YuaXQxJDAiBgkqhkiG9w0BCQEWFXNwaWQudGVjaEBhZ2lkLmdvdi5pdDAeFw0yMTA5MjgwNzM5MTFaFw0yMzA5MjgwNzM5MTFaMIHOMQswCQYDVQQGEwJJVDENMAsGA1UECAwEUm9tZTENMAsGA1UEBwwEUm9tZTEtMCsGA1UECgwkQWdJRCAtIEFnZW56aWEgcGVyIGwnSXRhbGlhIERpZ2l0YWxlMSwwKgYDVQQLDCNBZ0lEIC0gU2Vydml6aW8gYWNjcmVkaXRhbWVudG8gU1BJRDEeMBwGA1UEAwwVdmFsaWRhdG9yLnNwaWQuZ292Lml0MSQwIgYJKoZIhvcNAQkBFhVzcGlkLnRlY2hAYWdpZC5nb3YuaXQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCjbuxHXdLPZZc/b9YaSqxdUsdDLYNdpBjdEmPoNf2LrXlBv8IODStRkNyQsAnOdy+R7Ud+kdtJi+tblx8e29RHRSsvl6HL3O0/3aS9XsyUGhbUE45SLxNWTMubU7UyS1mRhSdEUIbtVxYgSu1uH6zeIN2DhxQZIb0APZ7aLbJewu25qECz2dnV54R45pBwst/6MrnBa15VfKDRA2zdgfGjIgGWgxWtf7CqzfXnhush0IyaL4RVn/7tUurxj//LY6f37yMP1EAIbn9thc37ZhyfM9grAH3Cc4kdEB+HaiQ83fTH6LshPgTHww0w88TxK1jrV/vEG3T6ZhCqXt7qRvKtAgMBAAGjUzBRMB0GA1UdDgQWBBT0HytnpUbkZxLa0N+lfD08WrQX2TAfBgNVHSMEGDAWgBT0HytnpUbkZxLa0N+lfD08WrQX2TAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQCYcghyQ6zhRmLDzliNgJxPUOTJa/9UmZRgWYFcYHMumXTTTT/fmy00hTRFIKWpB0AibyEJhODIjCqNJN3RsCDbkwEDR0thhMQ51vK8oB9X1JVMDQ8v+eRTQTa8bZv8W8IPn7fgQFoX5IkiXEQtgf+hi/ErX/L4O6qbYxE/lIZneXXxlZUVM4YN9aS25nmuCumg9MbrmCCwplliKgKSZ77IERmcFm1tzpEFMJNI8LIaDL8VLSOosIMdLwel3oP3mosTw2hkSfyVUwHp/0y4rJ+zIel/4vBoySsyrJCCi8wBe9WNpIlUV/gGSayPkJMe0qc8m0GzncZDkqF/Bd7xsUHc",
+        "X509SigningCertificate": "MIIEATCCAumgAwIBAgIUKnIX6ljIqVPkFQ8hJVj8KAYegBIwDQYJKoZIhvcNAQELBQAwgY8xCzAJBgNVBAYTAklUMQ0wCwYDVQQIDARSb21lMQ0wCwYDVQQHDARSb21lMQ0wCwYDVQQKDARBZ0lEMQ0wCwYDVQQLDARBZ0lEMR4wHAYDVQQDDBV2YWxpZGF0b3Iuc3BpZC5nb3YuaXQxJDAiBgkqhkiG9w0BCQEWFXNwaWQudGVjaEBhZ2lkLmdvdi5pdDAeFw0yMzEwMTgwNjI1MjVaFw0yNTEwMTcwNjI1MjVaMIGPMQswCQYDVQQGEwJJVDENMAsGA1UECAwEUm9tZTENMAsGA1UEBwwEUm9tZTENMAsGA1UECgwEQWdJRDENMAsGA1UECwwEQWdJRDEeMBwGA1UEAwwVdmFsaWRhdG9yLnNwaWQuZ292Lml0MSQwIgYJKoZIhvcNAQkBFhVzcGlkLnRlY2hAYWdpZC5nb3YuaXQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDrvNDIgz4davA/fTJEc10f6yptnLojSspzXgP61EAg4REGmwfhbEP8+2v5pN4mVeCdL3saFUiFbn3LZRDbHAwKkoE6Uzi+mD7cPGqj10jtHU9i82C5cv2hta7VmPZkm0DFWFcayMiqfCqG8u19ntL/PX5bUa3mUcDQ6LNG+0qM9JTeHpB3UjP1Dh881i3zdqbi1mBWtJYPDkdHerZwem0+E8cdv01d3P9593Ui8zQ6jnT3eRDRVH+yquy9sxEUuds4fcF95kJhXK7YOdZQyU2+xg0bLO35XajvCSBGIqVsTBbTd5M154EU/+dfklL9AeXBwF9NoGpa2gc+CJCOfgqvAgMBAAGjUzBRMB0GA1UdDgQWBBTqP5J762zVXV2hiVxZBqw1UGdFKjAfBgNVHSMEGDAWgBTqP5J762zVXV2hiVxZBqw1UGdFKjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQDRlOps/3rEXdEc2SAbFUjU6PmoD+ycpQvMvhn1fbrScLB4v4MnsaT5pCgLsxfglb+cDjgkRyEXhs1K6sTsJhTkJ9t9sYgwLVlxuqxKPPxOab0JUZ5/9UsxZ0eKnw0ZmW2VYFIZ6u3zm8RwWZXtpm97w0p43c31fQ0Dc0+KFTKjgQ5q7oG67fV1M0aQaC9wjnthtjCIkBXyK+T637INAoSN4SXIiaZR7OTSTKzJzSBfg+CHGvUTlYVZe9vUx+0filRd0NAv5eCdGPyVbLieCGxJgNnV970TE0olp2VOmAE6O6kvisIvf2Lf3kNtuDTcov+tnKsS3L1FanDUjjZnkTaO",
         "OrganizationLogoUrl": "https://validator.spid.gov.it/img/idp-logo.png",
         "SingleSignOnServiceUrlPost": "https://validator.spid.gov.it/samlsso",
         "SingleSignOutServiceUrlPost": "https://validator.spid.gov.it/samlsso",
@@ -137,7 +137,10 @@ In particolare è possibile aggiungere alla configurazione una sezione 'Spid' ch
     "AttributeConsumingServiceIndex": 0,
     "RandomIdentityProvidersOrder": false,
     "SecurityLevel": 2,
-    "RequestMethod": "Post"
+    "RequestMethod": "Post",
+    "IdPRegistryURL": "https://registry.spid.gov.it/entities-idp?&output=json", // opzionale, indica l'indirizzo da cui viene fatto il download dei metadata degli IdP, se omesso il default è il valore indicato
+    "CacheIdpMetadata": true, // opzionale, abilita il caching statico del download dei metadata degli IdP dal registry, se omesso il default è true
+    "IdpMetadataCacheDurationInMinutes": 1440 // opzionale, indica la durata della cache statica dei metadata degli IdP, se omesso il default è 1440
   }
 ```
 La configurazione del certificato del SP avviene specificando nel campo `Source` uno tra i valori `Store/File/Raw/None` (nel caso di `None` non verrà caricato un certificato durante lo startup, ma sarà necessario fornirne uno a runtime, tramite l'uso dei `CustomSpidEvents`, che verranno presentati più nel dettaglio nella sezione successiva) e compilando opportunamente la sezione corrispondente al valore specificato. Le sezioni non usate (quelle cioè corrispondenti agli altri valori) potranno essere tranquillamente eliminate dal file di configurazione, dal momento che non verranno lette.
@@ -479,6 +482,8 @@ Questi esempi sono solo esemplificativi dell'integrazione con la libreria, non d
 # Compliance
 La libreria è stata oggetto di collaudo da parte di AGID, sia per soluzioni come ServiceProvider che come Aggregatore, ha superato tutti i test di [spid-sp-test](https://github.com/italia/spid-sp-test) (che è integrata in CI, è possibile vedere i log nelle actions), ed è compliant con le direttive specificate negli avvisi SPID.
 
+# Upgrade dalla versione 2.x alla 3.x
+A partire dalla versione 3.0.0 è stato modificato l'insieme di eccezioni lanciate dalla libreria, con l'introduzione del tipo SpidException. Per il suo utilizzo e la sua gestione si rimanda alla [relativa sezione della documentazione](#error-handling).
 
 # Upgrade dalla versione 1.x alla 2.x
 A partire dalla versione 2.0.0 è stato introdotto il discovery automatizzato degli IdentityProvider di produzione, non è più necessario quindi includerli nelle settings, ma verrà utilizzato l'endpoint dello SPID Registry per il discovery.

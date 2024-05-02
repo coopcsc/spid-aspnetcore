@@ -1,41 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SPID.AspNetCore.Authentication.Exceptions
+namespace SPID.AspNetCore.Authentication.Exceptions;
+
+public class SpidException : Exception
 {
-  public class SpidException: Exception
-  {
-    private string _reason;
-    private SpidErrorCode _errorCode;
+    private readonly string _reason;
+    private readonly SpidErrorCode _errorCode;
 
     public SpidErrorCode ErrorCode { get { return _errorCode; } }
     public string Reason { get { return _reason; } }
 
+    public SpidException(string message) : base(message)
+    {
+        _reason = message ?? string.Empty;
+        _errorCode = SpidErrorCode.GenericError;
+    }
+
+    public SpidException(string message, string reason) : base(message)
+    {
+        _reason = reason ?? string.Empty;
+        _errorCode = SpidErrorCode.GenericError;
+    }
+
     public SpidException(string message, string reason, SpidErrorCode errorCode) : base(message)
     {
-      _reason = reason ?? string.Empty;
-      _errorCode = errorCode;
+        _reason = reason ?? string.Empty;
+        _errorCode = errorCode;
     }
 
     public SpidException(string message, string reason, SpidErrorCode errorCode, Exception innerException) : base(message, innerException)
     {
-      _reason = reason ?? string.Empty;
-      _errorCode = errorCode;
+        _reason = reason ?? string.Empty;
+        _errorCode = errorCode;
     }
 
     public SpidException(string message, SpidErrorCode errorCode) : base(message)
     {
-      _reason = message ?? string.Empty;
-      _errorCode = errorCode;
+        _reason = message ?? string.Empty;
+        _errorCode = errorCode;
     }
-  }
+}
 
-  public enum SpidErrorCode
-  {
+public enum SpidErrorCode
+{
+    ResponseNotValid = 1,
     ResponseNonFirmata = 2,
     ResponseAssertionNonFirmata = 3,
     ResponseFirmaNonValida = 4,
@@ -63,7 +71,11 @@ namespace SPID.AspNetCore.Authentication.Exceptions
     ResponseIssuerDiversoDaIdP = 29,
     ResponseIssuerFormatDiverso = 30,
     ResponseIssuerFormatOmesso = 31,
+<<<<<<< HEAD
     ResponseAssertionMancante  = 32,
+=======
+    ResponseAssertionMancante = 32,
+>>>>>>> origin/main
     AssertionIdNonSpec = 33,
     AssertionIdMancante = 34,
     AssertionVersionNoDue = 35,
@@ -101,7 +113,11 @@ namespace SPID.AspNetCore.Authentication.Exceptions
     AssertionIssuerMancante = 68,
     AssertionIssuerDiversoIdP = 69,
     AssertionIssuerFormatNonSpec = 70,
+<<<<<<< HEAD
     AssertionIssuerFormatMancante = 71, 
+=======
+    AssertionIssuerFormatMancante = 71,
+>>>>>>> origin/main
     AssertionIssuerFormatDiverso = 72,
     AssertionConditionsNonSpec = 73,
     AssertionConditionsMancante = 74,
@@ -141,6 +157,10 @@ namespace SPID.AspNetCore.Authentication.Exceptions
     ResponseIssueInstantNoMs = 110,
     Anomalia25 = 111,
     //utilizzato il 1000 per non "occupare" valori che potrebbero essere relativi a nuovi test AgID
+<<<<<<< HEAD
+=======
+    ArgumentNull = 1000,
+>>>>>>> origin/main
     SSOUrlRequired = 1001,
     ResponseMancante = 1002,
     AttributiRichiestiMancanti = 1003,
@@ -151,12 +171,22 @@ namespace SPID.AspNetCore.Authentication.Exceptions
     ReferenceUriNullOrWhitespace = 1008,
     CertificatePathNullOrEmpty = 1009,
     CertificatePasswordNullOrEmpty = 1010,
+<<<<<<< HEAD
     SAMLInvalid = 1111,
+=======
+    CertificatePrivateKeyNotFound = 1011,
+    SAMLInvalid = 1111,
+    InvalidClaimType = 1112,
+>>>>>>> origin/main
     CertificateRawStringNullOrEmpty = 1012,
     CertificateFindValueNullOrEmpty = 1013,
     IsPassiveTrue = 1115,
     AttributeConsumerServiceIndexNonCorretto = 1118,
     Anomalia30 = 1130,
+<<<<<<< HEAD
     
   }
+=======
+    GenericError = 9999
+>>>>>>> origin/main
 }

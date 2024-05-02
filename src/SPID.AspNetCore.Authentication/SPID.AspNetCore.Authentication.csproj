@@ -12,11 +12,11 @@
 		<PackageProjectUrl>https://github.com/italia/spid-aspnetcore</PackageProjectUrl>
 		<PackageIcon>spid-nuget.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageVersion>2.0.4.1</PackageVersion>
-		<Version>2.0.4.1</Version>
-		<AssemblyVersion>2.0.4.1</AssemblyVersion>
-		<FileVersion>2.0.4.1</FileVersion>
-		<InformationalVersion>2.0.4.1</InformationalVersion>
+		<PackageVersion>3.1.1</PackageVersion>
+		<Version>3.1.1</Version>
+		<AssemblyVersion>3.1.1</AssemblyVersion>
+		<FileVersion>3.1.1</FileVersion>
+		<InformationalVersion>3.1.1</InformationalVersion>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/italia/spid-aspnetcore</RepositoryUrl>
@@ -26,7 +26,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="6.0.21" />
+		<PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="6.0.23" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net6.0'">
@@ -36,7 +36,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.12" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
