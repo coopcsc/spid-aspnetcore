@@ -71,11 +71,7 @@ public enum SpidErrorCode
     ResponseIssuerDiversoDaIdP = 29,
     ResponseIssuerFormatDiverso = 30,
     ResponseIssuerFormatOmesso = 31,
-<<<<<<< HEAD
-    ResponseAssertionMancante  = 32,
-=======
     ResponseAssertionMancante = 32,
->>>>>>> origin/main
     AssertionIdNonSpec = 33,
     AssertionIdMancante = 34,
     AssertionVersionNoDue = 35,
@@ -113,11 +109,7 @@ public enum SpidErrorCode
     AssertionIssuerMancante = 68,
     AssertionIssuerDiversoIdP = 69,
     AssertionIssuerFormatNonSpec = 70,
-<<<<<<< HEAD
-    AssertionIssuerFormatMancante = 71, 
-=======
     AssertionIssuerFormatMancante = 71,
->>>>>>> origin/main
     AssertionIssuerFormatDiverso = 72,
     AssertionConditionsNonSpec = 73,
     AssertionConditionsMancante = 74,
@@ -157,10 +149,7 @@ public enum SpidErrorCode
     ResponseIssueInstantNoMs = 110,
     Anomalia25 = 111,
     //utilizzato il 1000 per non "occupare" valori che potrebbero essere relativi a nuovi test AgID
-<<<<<<< HEAD
-=======
     ArgumentNull = 1000,
->>>>>>> origin/main
     SSOUrlRequired = 1001,
     ResponseMancante = 1002,
     AttributiRichiestiMancanti = 1003,
@@ -171,22 +160,13 @@ public enum SpidErrorCode
     ReferenceUriNullOrWhitespace = 1008,
     CertificatePathNullOrEmpty = 1009,
     CertificatePasswordNullOrEmpty = 1010,
-<<<<<<< HEAD
-    SAMLInvalid = 1111,
-=======
     CertificatePrivateKeyNotFound = 1011,
     SAMLInvalid = 1111,
     InvalidClaimType = 1112,
->>>>>>> origin/main
     CertificateRawStringNullOrEmpty = 1012,
     CertificateFindValueNullOrEmpty = 1013,
     IsPassiveTrue = 1115,
     AttributeConsumerServiceIndexNonCorretto = 1118,
     Anomalia30 = 1130,
-<<<<<<< HEAD
-    
-  }
-=======
     GenericError = 9999
->>>>>>> origin/main
 }
