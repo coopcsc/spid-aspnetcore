@@ -15,7 +15,7 @@ namespace SPID.AspNetCore.Authentication.Saml
 {
     internal static class SamlHandler
     {
-        private static readonly Dictionary<Type, XmlSerializer> serializers = new Dictionary<Type, XmlSerializer>
+        private static readonly Dictionary<Type, XmlSerializer> serializers = new()
         {
             { typeof(AuthnRequestType), new XmlSerializer(typeof(AuthnRequestType)) },
             { typeof(ResponseType), new XmlSerializer(typeof(ResponseType)) },
@@ -25,7 +25,7 @@ namespace SPID.AspNetCore.Authentication.Saml
             { typeof(SP.EntityDescriptorType), new XmlSerializer(typeof(SP.EntityDescriptorType)) },
             { typeof(SPAv29.EntityDescriptorType), new XmlSerializer(typeof(SPAv29.EntityDescriptorType)) },
         };
-        private static readonly List<string> listAuthRefValid = new List<string>
+        private static readonly List<string> listAuthRefValid = new()
         {
             SamlConst.SpidL + "1",
             SamlConst.SpidL + "2",
@@ -75,13 +75,12 @@ namespace SPID.AspNetCore.Authentication.Saml
 
             DateTimeOffset now = DateTimeOffset.UtcNow;
 
-            return new AuthnRequestType
+            var authreq = new AuthnRequestType
             {
                 ID = "_" + requestId,
                 Version = SamlConst.Version,
                 IssueInstant = now.AddMinutes(nowDelta).ToString(dateTimeFormat),
                 Destination = identityProvider.GetSingleSignOnServiceUrl(requestMethod),
-                ProtocolBinding = requestMethod == RequestMethod.Post ? SamlConst.ProtocolBindingPOST : SamlConst.ProtocolBindingRedirect,
                 ForceAuthn = true,
                 ForceAuthnSpecified = true,
                 Issuer = new NameIDType
@@ -90,7 +89,6 @@ namespace SPID.AspNetCore.Authentication.Saml
                     Format = SamlConst.IssuerFormat,
                     NameQualifier = entityId
                 },
-                AssertionConsumerServiceURL = assertionConsumerServiceURL,
                 AssertionConsumerServiceIndex = assertionConsumerServiceIndex ?? SamlDefaultSettings.AssertionConsumerServiceIndex,
                 AssertionConsumerServiceIndexSpecified = assertionConsumerServiceIndex.HasValue,
                 AttributeConsumingServiceIndex = attributeConsumingServiceIndex,
@@ -112,16 +110,24 @@ namespace SPID.AspNetCore.Authentication.Saml
                 {
                     Comparison = AuthnContextComparisonType.minimum,
                     ComparisonSpecified = true,
-                    Items = new string[1]
-                    {
+                    Items =
+                    [
                         SamlConst.SpidL + securityLevel
-                    },
-                    ItemsElementName = new ItemsChoiceType7[1]
-                    {
+                    ],
+                    ItemsElementName =
+                    [
                         ItemsChoiceType7.AuthnContextClassRef
-                    }
+                    ]
                 }
             };
+
+            if (!string.IsNullOrEmpty(assertionConsumerServiceURL))
+            {
+                authreq.ProtocolBinding = requestMethod == RequestMethod.Post ? SamlConst.ProtocolBindingPOST : SamlConst.ProtocolBindingRedirect;
+                authreq.AssertionConsumerServiceURL = assertionConsumerServiceURL;
+            }
+
+            return authreq;
         }
 
         /// <summary>
