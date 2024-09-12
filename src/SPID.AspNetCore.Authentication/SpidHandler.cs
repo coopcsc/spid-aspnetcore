@@ -26,27 +26,17 @@ using System.Web;
 
 namespace SPID.AspNetCore.Authentication
 {
-    public class SpidHandler : RemoteAuthenticationHandler<SpidOptions>, IAuthenticationSignOutHandler
+    public class SpidHandler(IOptionsMonitor<SpidOptions> options,
+            ILoggerFactory logger,
+            UrlEncoder encoder,
+            ISystemClock clock,
+            IHttpClientFactory httpClientFactory,
+            ILogHandler logHandler,
+            IIdpNameRetriever nameRetriever)
+        : RemoteAuthenticationHandler<SpidOptions>(options, logger, encoder, clock), IAuthenticationSignOutHandler
     {
         EventsHandler _eventsHandler;
         RequestHandler _requestGenerator;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogHandler _logHandler;
-        private readonly IIdpNameRetriever _nameRetriever;
-
-        public SpidHandler(IOptionsMonitor<SpidOptions> options,
-                ILoggerFactory logger,
-                UrlEncoder encoder,
-                ISystemClock clock,
-                IHttpClientFactory httpClientFactory,
-                ILogHandler logHandler,
-                IIdpNameRetriever nameRetriever)
-                : base(options, logger, encoder, clock)
-        {
-            _httpClientFactory = httpClientFactory;
-            _logHandler = logHandler;
-            _nameRetriever = nameRetriever;
-        }
 
         protected new SpidEvents Events
         {
@@ -109,9 +99,9 @@ namespace SPID.AspNetCore.Authentication
             string authenticationRequestId = Guid.NewGuid().ToString();
 
             // Select the Identity Provider
-            var idpName = await _nameRetriever.GetIdpName();
+            var idpName = await nameRetriever.GetIdpName();
             this.Logger.LogInformation($"ipdName : {idpName}");
-            var idp = (await Options.GetIdentityProviders(_httpClientFactory)).FirstOrDefault(x => x.Name == idpName);
+            var idp = (await Options.GetIdentityProviders(httpClientFactory)).FirstOrDefault(x => x.Name == idpName);
 
             var securityTokenCreatingContext = await _eventsHandler.HandleSecurityTokenCreatingContext(Context,
                 Scheme,
